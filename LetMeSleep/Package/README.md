@@ -36,6 +36,9 @@ When enabled, the server will "shout" to all players whenever anyone "votes" to 
 [radicalpi](https://www.twitch.tv/radicalpi) - Testing the mod.
 
 ## Changelog
+- 1.0.1:
+  - Limit ratio value between 0.01 and 1.0.
+  - Upload to Thunderstore.
 - 1.0.0:
   - Initial release
 
