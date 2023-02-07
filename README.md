@@ -6,7 +6,7 @@ A simple server-side mod that allows players to skip to dawn when only some play
 - Otherwise, extract the .dll from the .zip file and place it in ``<Install directory>\BepInEx\plugins``
 
 ## Configuration
-When running this mod for the first time, ``LetMeSleep.cfg`` will be generated within ``<Install directory>\BepInEx\config``
+When running this mod for the first time, ``blockchaaain.LetMeSleep.cfg`` will be generated within ``<Install directory>\BepInEx\config``
 
 ### Ratio (``ratio = 0.5``)
 This ratio is the fraction of online players that must "vote" to sleep. Configurable between 1% (0.01) and 100% (1.0).
