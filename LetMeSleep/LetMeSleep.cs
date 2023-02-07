@@ -23,7 +23,7 @@ namespace LetMeSleep
         private static readonly Harmony harmony = new Harmony(PluginGUID);
 
         private static ConfigFile configFile = new ConfigFile(Path.Combine(BepInEx.Paths.ConfigPath, "blockchaaain.LetMeSleep.cfg"), true);
-        private static ConfigEntry<double> ratio = configFile.Bind("General", "ratio", 0.5, new ConfigDescription("Fraction of players needed in bed to skip the night.", new AcceptableValueRange<double>(Double.Epsilon, 1.0)));
+        private static ConfigEntry<double> ratio = configFile.Bind("General", "ratio", 0.5, new ConfigDescription("Fraction of players needed in bed to skip the night.", new AcceptableValueRange<double>(0.01, 1.0)));
         private static ConfigEntry<bool> message = configFile.Bind("General", "showMessage", true, "Show a chat message with the number of players currently in bed.");
 
         private void Awake()
@@ -75,8 +75,7 @@ namespace LetMeSleep
 
                 string message = String.Format("{0:d}/{1:d} ({2:p0})", numInBed, playerCount, sleepRatio);
 
-                // Send message to everyone at everyone's position
-                // In bed: 2/5 (40 %)
+                // Send message to everyone, e.g. "In bed: 2/5 (40 %)"
                 ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.Everybody, "ChatMessage", position, talkerType, talker, message, PrivilegeManager.GetNetworkUserId());
             }
 
