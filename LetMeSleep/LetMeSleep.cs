@@ -18,7 +18,7 @@ namespace LetMeSleep
     {
         public const string PluginGUID = "blockchaaain.LetMeSleep";
         public const string PluginName = "LetMeSleep";
-        public const string PluginVersion = "1.0.0";
+        public const string PluginVersion = "1.0.1";
 
         private static readonly Harmony harmony = new Harmony(PluginGUID);
 
