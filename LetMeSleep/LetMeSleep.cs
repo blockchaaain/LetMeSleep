@@ -18,7 +18,7 @@ namespace LetMeSleep
     {
         public const string PluginGUID = "blockchaaain.LetMeSleep";
         public const string PluginName = "LetMeSleep";
-        public const string PluginVersion = "1.0.1";
+        public const string PluginVersion = "1.0.2";
 
         private static readonly Harmony harmony = new Harmony(PluginGUID);
 
@@ -76,7 +76,7 @@ namespace LetMeSleep
                 string message = String.Format("{0:d}/{1:d} ({2:p0})", numInBed, playerCount, sleepRatio);
 
                 // Send message to everyone, e.g. "In bed: 2/5 (40 %)"
-                ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.Everybody, "ChatMessage", position, talkerType, talker, message, PrivilegeManager.GetNetworkUserId());
+                ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.Everybody, "ChatMessage", position, talkerType, UserInfo.GetLocalUser(), message, PrivilegeManager.GetNetworkUserId());
             }
 
             prevInBed = numInBed;

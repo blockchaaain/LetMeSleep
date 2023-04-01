@@ -1,10 +1,10 @@
 {
   "name": "LetMeSleep",
   "author": "blockchaaain",
-  "version_number": "1.0.1",
+  "version_number": "1.0.2",
   "website_url": "https://github.com/blockchaaain/LetMeSleep",
   "description": "Skip the night with only some players in bed.",
   "dependencies": [
-    "denikson-BepInExPack_Valheim-5.4.1901"
+    "denikson-BepInExPack_Valheim-5.4.2102"
   ]
 }

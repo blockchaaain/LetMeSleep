@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Reference Include="BepInEx, Version=5.4.19.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="BepInEx, Version=5.4.21.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>false</Private>
       <HintPath>$(BEPINEX_INSTALL)\BepInEx\core\BepInEx.dll</HintPath>
@@ -11,7 +11,7 @@
       <Private>false</Private>
       <HintPath>$(BEPINEX_INSTALL)\BepInEx\core\BepInEx.Harmony.dll</HintPath>
     </Reference>
-    <Reference Include="BepInEx.Preloader, Version=5.4.19.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="BepInEx.Preloader, Version=5.4.21.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>false</Private>
       <HintPath>$(BEPINEX_INSTALL)\BepInEx\core\BepInEx.Preloader.dll</HintPath>

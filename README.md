@@ -24,6 +24,7 @@ When enabled, the server will "shout" to all players whenever anyone "votes" to 
 ### LetMeSleep attempts to improve upon SkipSleep
 - Compatible with Mistlands!
   - The RPC_ChatMessage parameters have changed, causing exceptions in older mods.
+  - The parameters changed a second time with 0.214!
 - Server message is sent to all players only once when someone gets in bed.
   - Does not continue to send messages each time Valheim checks sleep conditions.
 - Server message is not duplicated for each player online.
@@ -36,6 +37,8 @@ When enabled, the server will "shout" to all players whenever anyone "votes" to 
 [radicalpi](https://www.twitch.tv/radicalpi) - Testing the mod.
 
 ## Changelog
+- 1.0.2:
+  - Modify for Valheim 0.214
 - 1.0.1:
   - Limit ratio value between 0.01 and 1.0.
   - Upload to Thunderstore.
