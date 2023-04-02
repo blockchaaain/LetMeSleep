@@ -2,8 +2,8 @@
 A simple server-side mod that allows players to skip to dawn when only some players are in bed.
 
 ## How to install
-- If using Thunderstore Mod Manager, go to Settings, select "Import local mod", and select the "blockchaaain-LetMeSleep.zip" file.
-- Otherwise, extract the .dll from the .zip file and place it in ``<Install directory>\BepInEx\plugins``
+- Use the Thunderstore Mod Manager.
+- Only the server needs this mod installed.
 
 ## Configuration
 When running this mod for the first time, ``blockchaaain.LetMeSleep.cfg`` will be generated within ``<Install directory>\BepInEx\config``
