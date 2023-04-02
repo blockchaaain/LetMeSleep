@@ -69,14 +69,10 @@ namespace LetMeSleep
             // If showMessage is true AND anyone is in bed AND number in bed changed
             if (message.Value && numInBed > 0 && numInBed != prevInBed)
             {
-                Vector3 position = Vector3.zero;
-                int talkerType = (int)Talker.Type.Shout;
-                string talker = "In bed";
+                string message = String.Format("{0:d}/{1:d} ({2:p0}) asleep", numInBed, playerCount, sleepRatio);
 
-                string message = String.Format("{0:d}/{1:d} ({2:p0})", numInBed, playerCount, sleepRatio);
-
-                // Send message to everyone, e.g. "In bed: 2/5 (40 %)"
-                ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.Everybody, "ChatMessage", position, talkerType, UserInfo.GetLocalUser(), message, PrivilegeManager.GetNetworkUserId());
+                // Send message to everyone, e.g. "Server: 2/5 (40 %) asleep"
+                Chat.instance.SendText(Talker.Type.Shout, message);
             }
 
             prevInBed = numInBed;
