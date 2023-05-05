@@ -37,6 +37,8 @@ When enabled, the server will "shout" to all players whenever anyone "votes" to 
 [radicalpi](https://www.twitch.tv/radicalpi) - Testing the mod.
 
 ## Changelog
+- 1.0.3:
+	- Catch exceptions while sending messages.
 - 1.0.2:
   - Modify for Valheim 0.214
 - 1.0.1:

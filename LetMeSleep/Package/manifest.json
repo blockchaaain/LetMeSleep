@@ -1,7 +1,7 @@
 {
   "name": "LetMeSleep",
   "author": "blockchaaain",
-  "version_number": "1.0.2",
+  "version_number": "1.0.3",
   "website_url": "https://github.com/blockchaaain/LetMeSleep",
   "description": "Skip the night with only some players in bed.",
   "dependencies": [

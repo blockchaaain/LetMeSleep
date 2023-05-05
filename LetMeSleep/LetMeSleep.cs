@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using BepInEx;
 using BepInEx.Configuration;
+using BepInEx.Logging;
 using HarmonyLib;
 using UnityEngine;
 
@@ -18,17 +19,21 @@ namespace LetMeSleep
     {
         public const string PluginGUID = "blockchaaain.LetMeSleep";
         public const string PluginName = "LetMeSleep";
-        public const string PluginVersion = "1.0.2";
+        public const string PluginVersion = "1.0.3";
 
         private static readonly Harmony harmony = new Harmony(PluginGUID);
 
         private static ConfigFile configFile = new ConfigFile(Path.Combine(BepInEx.Paths.ConfigPath, "blockchaaain.LetMeSleep.cfg"), true);
         private static ConfigEntry<double> ratio = configFile.Bind("General", "ratio", 0.5, new ConfigDescription("Fraction of players needed in bed to skip the night.", new AcceptableValueRange<double>(0.01, 1.0)));
-        private static ConfigEntry<bool> message = configFile.Bind("General", "showMessage", true, "Show a chat message with the number of players currently in bed.");
+        private static ConfigEntry<bool> showMessage = configFile.Bind("General", "showMessage", true, "Show a chat message with the number of players currently in bed.");
+
+        private static new ManualLogSource Logger;
 
         private void Awake()
         {
             harmony.PatchAll();
+
+            Logger = base.Logger;
         }
 
         private void OnDestroy()
@@ -67,12 +72,25 @@ namespace LetMeSleep
             double sleepRatio = Convert.ToDouble(numInBed) / allCharacterZdos.Count;
 
             // If showMessage is true AND anyone is in bed AND number in bed changed
-            if (message.Value && numInBed > 0 && numInBed != prevInBed)
+            if (showMessage.Value && numInBed > 0 && numInBed != prevInBed)
             {
                 string message = String.Format("{0:d}/{1:d} ({2:p0}) asleep", numInBed, playerCount, sleepRatio);
 
-                // Send message to everyone, e.g. "Server: 2/5 (40 %) asleep"
-                Chat.instance.SendText(Talker.Type.Shout, message);
+                try
+                {
+                    // Send message to everyone, e.g. "Server: 2/5 (40 %) ASLEEP"
+                    Chat.instance.SendText(Talker.Type.Shout, message);
+                }
+                catch (Exception e)
+                {
+                    // Warning and information
+                    Logger.LogWarning("Exception while sending server message from LetMeSleep:" + Environment.NewLine + e.Message);
+                    Logger.LogMessage("Consider disabling server messages in blockchaaain.LetMeSleep.cfg");
+                    Logger.LogMessage("Bug reports can be submitted at: https://github.com/blockchaaain/LetMeSleep");
+
+                    // Produce exception and warning only once
+                    showMessage.Value = false;
+                }
             }
 
             prevInBed = numInBed;
