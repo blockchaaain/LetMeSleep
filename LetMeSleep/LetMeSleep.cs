@@ -19,7 +19,7 @@ namespace LetMeSleep
     {
         public const string PluginGUID = "blockchaaain.LetMeSleep";
         public const string PluginName = "LetMeSleep";
-        public const string PluginVersion = "1.0.3";
+        public const string PluginVersion = "1.0.4";
 
         private static readonly Harmony harmony = new Harmony(PluginGUID);
 
@@ -74,12 +74,21 @@ namespace LetMeSleep
             // If showMessage is true AND anyone is in bed AND number in bed changed
             if (showMessage.Value && numInBed > 0 && numInBed != prevInBed)
             {
-                string message = String.Format("{0:d}/{1:d} ({2:p0}) asleep", numInBed, playerCount, sleepRatio);
-
                 try
                 {
-                    // Send message to everyone, e.g. "Server: 2/5 (40 %) ASLEEP"
-                    Chat.instance.SendText(Talker.Type.Shout, message);
+                    Vector3 position = Vector3.zero;
+
+                    int talkerType = (int)Talker.Type.Shout;
+
+                    UserInfo userInfo = UserInfo.GetLocalUser();
+                    userInfo.Name = "Server";
+
+                    string message = String.Format("{0:d}/{1:d} ({2:p0}) sleeping", numInBed, playerCount, sleepRatio);
+
+                    string networkUserID = PrivilegeManager.GetNetworkUserId();
+
+                    // Send chat message to everybody, e.g. "Server: 2/5 (40 %) SLEEPING"
+                    ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.Everybody, "ChatMessage", position, talkerType, userInfo, message, networkUserID);
                 }
                 catch (Exception e)
                 {

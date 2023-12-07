@@ -1,9 +1,9 @@
 # Let Me Sleep!
-A simple server-side mod that allows players to skip to dawn when only some players are in bed.
+A simple server-side mod that allows sleep when only some players are in bed.
 
 ## How to install
-- Use the Thunderstore Mod Manager.
-- Only the server needs this mod installed.
+- Use the [Thunderstore Mod Manager](https://valheim.thunderstore.io/package/Blockheim/LetMeSleep/)
+- Only the server needs this mod installed!
 
 ## Configuration
 When running this mod for the first time, ``blockchaaain.LetMeSleep.cfg`` will be generated within ``<Install directory>\BepInEx\config``
@@ -15,19 +15,20 @@ This ratio is the fraction of online players that must "vote" to sleep. Configur
 When enabled, the server will "shout" to all players whenever anyone "votes" to sleep. The message displays the current number of players in bed.
 
 ## Requirements
- - [BepInExPack for Valheim](https://valheim.thunderstore.io/package/denikson/BepInExPack_Valheim/) installed on the server and client.
+ - [BepInExPack for Valheim](https://valheim.thunderstore.io/package/denikson/BepInExPack_Valheim/) installed on the server.
 
 ## Credits
 [SkipSleep](https://github.com/RinseV/valheim-skipsleep) - Original code for counting the number of players in bed.  
 [JotunnModStub](https://github.com/Valheim-Modding/JotunnModStub) - Mod template.  
 
 ### LetMeSleep attempts to improve upon SkipSleep
-- Compatible with Mistlands!
+- Compatible with Hildir's Request!
   - The RPC_ChatMessage parameters have changed, causing exceptions in older mods.
-  - The parameters changed a second time with 0.214!
+  - Functions and parameters also changed previously with Mistlands and 0.214.
 - Server message is sent to all players only once when someone gets in bed.
   - Does not continue to send messages each time Valheim checks sleep conditions.
 - Server message is not duplicated for each player online.
+- Mod continues to work even if the chat message fails (and will only issue one error message).
 - Source includes everything needed to build the project.
 - Intends to make the code more streamlined and readable at the same time.
 
@@ -37,6 +38,8 @@ When enabled, the server will "shout" to all players whenever anyone "votes" to 
 [radicalpi](https://www.twitch.tv/radicalpi) - Testing the mod.
 
 ## Changelog
+- 1.0.4:
+	- Modify for Hildir's Request
 - 1.0.3:
 	- Catch exceptions while sending messages.
 - 1.0.2:
