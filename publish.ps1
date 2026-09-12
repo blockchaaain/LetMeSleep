@@ -63,7 +63,11 @@ if($Target.Equals("Release")) {
     New-Item -Type Directory -Path "$PackagePath" -Force
     Copy-Item -Path "$TargetPath\$TargetAssembly" -Destination "$PackagePath\$TargetAssembly" -Force
     Copy-Item -Path "$(Get-Location)\README.md" -Destination "$PackagePath\README.md" -Force
-    Compress-Archive -Path "$PackagePath\*" -DestinationPath "$TargetPath\$TargetAssembly.zip" -Force
+    $packageFiles = Get-ChildItem -Path $PackagePath -File | Where-Object { $_.Extension -ne '.zip' }
+    $releaseZip = "$TargetPath\$TargetAssembly.zip"
+    $thunderstoreZip = "$PackagePath\blockchaaain-LetMeSleep.zip"
+    Compress-Archive -Path $packageFiles.FullName -DestinationPath $releaseZip -Force
+    Copy-Item -Path $releaseZip -Destination $thunderstoreZip -Force
 }
 
 # Pop Location

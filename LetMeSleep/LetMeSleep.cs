@@ -6,7 +6,6 @@ using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using HarmonyLib;
-using UnityEngine;
 
 namespace LetMeSleep
 {
@@ -19,13 +18,13 @@ namespace LetMeSleep
     {
         public const string PluginGUID = "blockchaaain.LetMeSleep";
         public const string PluginName = "LetMeSleep";
-        public const string PluginVersion = "1.0.4";
+        public const string PluginVersion = "1.0.5";
 
         private static readonly Harmony harmony = new Harmony(PluginGUID);
 
         private static ConfigFile configFile = new ConfigFile(Path.Combine(BepInEx.Paths.ConfigPath, "blockchaaain.LetMeSleep.cfg"), true);
         private static ConfigEntry<double> ratio = configFile.Bind("General", "ratio", 0.5, new ConfigDescription("Fraction of players needed in bed to skip the night.", new AcceptableValueRange<double>(0.01, 1.0)));
-        private static ConfigEntry<bool> showMessage = configFile.Bind("General", "showMessage", true, "Show a chat message with the number of players currently in bed.");
+        private static ConfigEntry<bool> showMessage = configFile.Bind("General", "showMessage", true, "Show a HUD message with the number of players currently in bed.");
 
         private static new ManualLogSource Logger;
 
@@ -66,7 +65,7 @@ namespace LetMeSleep
             }
 
             // Number of players in bed
-            int numInBed = allCharacterZdos.Where(zdo => zdo.GetBool("inBed")).Count();
+            int numInBed = allCharacterZdos.Where(zdo => zdo.GetBool(ZDOVars.s_inBed, false)).Count();
 
             // Calculate current ratio of people sleeping
             double sleepRatio = Convert.ToDouble(numInBed) / allCharacterZdos.Count;
@@ -76,19 +75,11 @@ namespace LetMeSleep
             {
                 try
                 {
-                    Vector3 position = Vector3.zero;
-
-                    int talkerType = (int)Talker.Type.Shout;
-
-                    UserInfo userInfo = UserInfo.GetLocalUser();
-                    userInfo.Name = "Server";
-
                     string message = String.Format("{0:d}/{1:d} ({2:p0}) sleeping", numInBed, playerCount, sleepRatio);
 
-                    string networkUserID = PrivilegeManager.GetNetworkUserId();
-
-                    // Send chat message to everybody, e.g. "Server: 2/5 (40 %) SLEEPING"
-                    ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.Everybody, "ChatMessage", position, talkerType, userInfo, message, networkUserID);
+                    // ChatMessage needs a valid platform user id in Valheim 1.0.
+                    // ShowMessage only needs a type and string, and Everybody delivers it locally and to peers.
+                    ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.Everybody, "ShowMessage", (int)MessageHud.MessageType.Center, message);
                 }
                 catch (Exception e)
                 {
